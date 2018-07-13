@@ -1,46 +1,58 @@
-const commandParser = (body) => {
+const GameHelper = require("./GameHelper");
+const { buildErrorMsg } = require("./messageBuilder");
 
-  let instruction = body.text
-  let channelId = body.channel_id
-  let userId = body.user_id
-  let userName = body.user_name
+const HELP = "help";
+const CHALLENGE = "challenge";
+const ACCEPT = "accept";
+const REJECT = "reject";
+const MOVE = "move";
+const SHOW = "show";
 
-  // if (instruction === 'new') {
-  //   playNewGame();
-  // } else if (instruction === 'set') {
-  //   // find game you're currently playing
-  //   // update the mark
-  // }
-
-
-  // parse command
-  // WHO is making the move
-  // is the move valid?
-  // if yes -> make the move
-  // if no -> send error msg
-
-  // if game has ended
-  // happy message!
-  // remove game.channel from channelsWithGames
-
+/*
+This function parses the request body
+and calls GameHelper with the appropriate method
+*/
+const commandParser = body => {
   return new Promise((resolve, reject) => {
-    resolve('hello')
-  })
-}
+    let channelId = body.channel_id;
+    let userId = body.user_id;
 
+    // split input by whitespace
+    let inputArray = body.text.split(/[ ]+/);
+    let command = inputArray[0];
+    let option = inputArray[1];
 
-function playNewGame() {
-  // check if valid
-  let game = new Game(user1, user2, channelId);
-}
+    switch (command) {
+      case HELP:
+        resolve(GameHelper.help());
+        break;
 
-// pregame
-// ttt challenge @ashley
-// ttt accept @nicole
-// ttt reject @nicole
+      case SHOW:
+        resolve(GameHelper.show(channelId));
+        break;
 
-// actual game
-// ttt 9
-// ttt 3
+      case CHALLENGE:
+        resolve(GameHelper.challenge(channelId, userId, option));
+        break;
 
-module.exports = commandParser
+      case ACCEPT:
+        resolve(GameHelper.accept(channelId, userId, option));
+        break;
+
+      case REJECT:
+        resolve(GameHelper.reject(channelId, userId, option));
+        break;
+
+      case MOVE:
+        resolve(GameHelper.move(channelId, userId, option));
+        break;
+
+      default:
+        resolve(buildErrorMsg(`Sorry command – ${command} – not recognized!`));
+    }
+
+    resolve(buildErrorMsg("Sorry, something went wrong!"));
+  });
+};
+
+module.exports = commandParser;
