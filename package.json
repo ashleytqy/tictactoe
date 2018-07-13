@@ -1,0 +1,26 @@
+{
+  "name": "tictactoe",
+  "version": "1.0.0",
+  "description": "a tictactoe slack command",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashleytqy/tictactoe.git"
+  },
+  "author": "Ashley Teoh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashleytqy/tictactoe/issues"
+  },
+  "homepage": "https://github.com/ashleytqy/tictactoe#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "string-tokenizer": "0.0.8",
+    "underscore": "^1.9.1",
+    "url-regex": "^4.1.1"
+  }
+}
