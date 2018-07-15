@@ -49,10 +49,10 @@ class Game {
   Returns a String that displays information of the current player and their symbol
   */
   showNextPlayer() {
-    if (this.getValidMoves().length === 9) {
-      return `\nFirst up: <@${this.currentPlayer}> (Player ${this.getCurrentSymbol()})!`;
-    }
-    return `\nNext up: <@${this.currentPlayer}> (Player ${this.getCurrentSymbol()})!`;
+    let message = (this.getValidMoves().length === 9) ? "\nFirst up:" : "\nNext up:"
+    message +=  `<@${this.currentPlayer}> (Player ${this.getCurrentSymbol()})!`
+    message += "\nType `/ttt move [number]` to make a move."
+    return message
   }
 
   /*
