@@ -1,4 +1,4 @@
-const GameHelper = require("./GameHelper");
+const GameHelper = require("./gameHelper");
 const { buildErrorMsg } = require("./messageBuilder");
 
 const HELP = "help";

@@ -1,13 +1,15 @@
 let slack = require("slack");
 
+const SLACK_WEB_TOKEN = process.env.SLACK_WEB_TOKEN;
+
+// a map of a user's name to their userID
+
 let users = {};
 
+/*
+Describes a helper class that talks to the Slack API
+*/
 class SlackHelper {
-  constructor() {
-    this.token =
-      "xoxp-397047310467-397047310995-398070207733-53b434539fa3cd80035d3f4c64c49b6a";
-  }
-
   getUserId(username) {
     // load users again in case someone joins midway
     this.loadUsers();
@@ -17,11 +19,11 @@ class SlackHelper {
   loadUsers() {
     slack.users.list(
       {
-        token: "xoxp-397047310467-397047310995-398070207733-53b434539fa3cd80035d3f4c64c49b6a"
+        token: SLACK_WEB_TOKEN
       },
       function(err, data) {
         if (err) {
-          console.err(err);
+          console.log(err);
           return;
         }
 

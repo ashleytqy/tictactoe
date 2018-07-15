@@ -2,19 +2,20 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const commandParser = require("./commandParser");
-const SlackHelper = require("./SlackHelper");
+const SlackHelper = require("./slackHelper");
+const { slackMsg } = require("./messageBuilder");
 
 // eagerly load all users
 let slackHelper = new SlackHelper();
 slackHelper.loadUsers();
 
 const PORT = 3000;
-const SLACK_TOKEN = "5a7020854433d045d34d0e8c945f8881";
+const SLACK_CLIENT_SECRET = process.env.SLACK_CLIENT_SECRET;
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
-if (!SLACK_TOKEN) {
+if (!SLACK_CLIENT_SECRET) {
   console.error("missing environment variables SLACK_TOKEN.");
   process.exit(1);
 }
@@ -34,23 +35,3 @@ app.post("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server started at localhost:${PORT}`);
 });
-
-function slackMsg(messageObject) {
-  if (!messageObject.valid) {
-    return {
-      fallback: messageObject.error_msg,
-      response_type: "in_channel",
-      attachments: [
-        {
-          color: "danger",
-          text: messageObject.error_msg
-        }
-      ]
-    };
-  } else {
-    return {
-      text: messageObject.success_msg,
-      response_type: "in_channel"
-    };
-  }
-}

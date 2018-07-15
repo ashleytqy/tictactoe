@@ -2,18 +2,18 @@ const _ = require("underscore");
 
 const Game = require("./game");
 const { buildSuccessMsg, buildErrorMsg } = require("./messageBuilder");
-const SlackHelper = require("./SlackHelper");
+const SlackHelper = require("./slackHelper");
 const slack = new SlackHelper();
 
 /*
-This object stores a map of channel ID to an array of sorted pairs of user IDs
+This object stores (in-memory) a map of channel ID to an array of sorted pairs of user IDs
 who have been challenged
 e.g. { channelA': [['user1', 'user2'], ['user3', 'user4']] }
 */
 let ongoingChallenges = {};
 
 /*
-This object  stores a map of channel ID to a sorted pair of user IDs in the game
+This object stores (in-memory) a map of channel ID to a sorted pair of user IDs in the game
 e.g. { channelA': ['user1', 'user2'] }
 */
 let activeGames = {};
@@ -76,7 +76,7 @@ function accept(channelId, challengeeId, challengerName) {
   let isChallengerValid = validateUser(challengerName);
   if (!isChallengerValid.valid) return isChallengerValid;
 
-  let challengerId = isValid.success_msg;
+  let challengerId = isChallengerValid.success_msg;
 
   if (activeGames[channelId])
     return buildErrorMsg("There is already an active game in this channel.");
@@ -153,6 +153,12 @@ function move(channelId, userId, number) {
 }
 
 /*
+*
+HELPER FUNCTIONS
+*
+*/
+
+/*
 This helper function removes a challenge from the `ongoingChallenges` object
 */
 function removeFromOngoingChallenges(channelId, challengerId, challengeeId) {
@@ -167,6 +173,7 @@ function removeFromOngoingChallenges(channelId, challengerId, challengeeId) {
 
 /*
 This helper function checks if the pair exists in the specified channel
+It returns true if the pair exists, and false if not
 */
 function challengeToBeResponded(channelId, pair) {
   if (_.isEmpty(ongoingChallenges)) return false;
@@ -193,6 +200,8 @@ function createChallenge(channelId, pair) {
 
 /*
 This helper function checks that the usernameWithSymbol is an existing user
+If the user exists, it returns a success message with the user's ID
+If not, it returns an error message
 */
 function validateUser(usernameWithSymbol) {
   if (usernameWithSymbol && usernameWithSymbol.substring(0, 1) !== "@")
@@ -207,6 +216,8 @@ function validateUser(usernameWithSymbol) {
 
 /*
 This helper function checks if the pair of user IDs is valid in the specified channel
+If the pair is valid, it returns a success message
+If not, it returns an error message
 */
 function validatePair(pair, channelId) {
   if (pair[0] == pair[1])
