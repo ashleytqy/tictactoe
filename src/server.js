@@ -1,9 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
-const commandParser = require("./commandParser");
-const SlackHelper = require("./slackHelper");
-const { slackMsg } = require("./messageBuilder");
+const commandParser = require("./util/commandParser");
+const SlackHelper = require("./util/slackHelper");
+const { slackMsg } = require("./util/messageBuilder");
 
 // eagerly load all users
 let slackHelper = new SlackHelper();

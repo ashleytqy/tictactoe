@@ -1,8 +1,8 @@
 const _ = require("underscore");
 
-const Game = require("./game");
-const { buildSuccessMsg, buildErrorMsg } = require("./util/messageBuilder");
-const SlackHelper = require("./util/slackHelper");
+const Game = require("../game");
+const { buildSuccessMsg, buildErrorMsg } = require("./messageBuilder");
+const SlackHelper = require("./slackHelper");
 const slack = new SlackHelper();
 
 /*
