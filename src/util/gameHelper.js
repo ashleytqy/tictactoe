@@ -179,18 +179,22 @@ function removeFromOngoingChallenges(channelId, challengerId, challengeeId) {
 }
 
 /*
-This helper function checks if the pair exists in the specified channel
-It returns true if the pair exists, and false if not
+This helper function checks if there is a challenge between the pair of users
+that needs to be responded to.
+It returns true if a challenge exists, and false if not
 */
 function challengeToBeResponded(channelId, pair) {
   if (_.isEmpty(ongoingChallenges)) return false;
 
+  let challengeExists = false
   if (ongoingChallenges[channelId]) {
     ongoingChallenges[channelId].forEach(currentPair => {
-      if (!_.isEqual(currentPair, pair)) return false;
+      if (_.isEqual(currentPair, pair)) {
+        challengeExists = true;
+      }
     });
   }
-  return true;
+  return challengeExists;
 }
 
 /*
