@@ -27,10 +27,15 @@ and returns a JSON response
 app.post("/", (req, res) => {
   commandParser(req.body)
     .then(result => {
+      res.set('content-type', 'application/json')
       return res.json(slackMsg(result));
     })
     .catch(console.error);
 });
+
+app.get("/", (req, res) => {
+  return res.json("Debugging!");
+})
 
 app.listen(PORT, () => {
   console.log(`Server started at localhost:${PORT}`);

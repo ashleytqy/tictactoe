@@ -41,7 +41,6 @@ function slackMsg(messageObject) {
   }
 }
 
-
 module.exports = {
   buildSuccessMsg: buildSuccessMsg,
   buildErrorMsg: buildErrorMsg,

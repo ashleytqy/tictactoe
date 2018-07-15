@@ -20,6 +20,18 @@
 - Only the user whose turn it is can make the next move.
 - When a turn is taken that ends the game, the response indicates this along with who won.
 
-## Areas of Improvement
+### Running
+In one terminal, do:
+```
+npm install
+node src/server.js
+```
+In another terminal, do:
+```
+ngrok http 3000 
+# get the generated URL and replace the `Request URL` field in your app's settings
+```
+
+## To-dos (in the future)
 - Connect to a database instead of storing everything in memory
-- Write tests
+- Write tests!

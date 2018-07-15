@@ -3,7 +3,6 @@ let slack = require("slack");
 const SLACK_WEB_TOKEN = process.env.SLACK_WEB_TOKEN;
 
 // a map of a user's name to their userID
-
 let users = {};
 
 /*
