@@ -9,7 +9,7 @@ const { slackMsg } = require("./messageBuilder");
 let slackHelper = new SlackHelper();
 slackHelper.loadUsers();
 
-const PORT = 3000;
+const PORT =  process.env.PORT || 3000;
 const SLACK_CLIENT_SECRET = process.env.SLACK_CLIENT_SECRET;
 
 const app = express();
