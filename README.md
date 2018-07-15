@@ -20,8 +20,8 @@
 - Only the user whose turn it is can make the next move.
 - When a turn is taken that ends the game, the response indicates this along with who won.
 
-### Running it locally
-In one terminal, do:
+## Running it locally
+After you fill in the relevant environment variables in `.sample-env` and rename it to `.env`. In one terminal, do:
 ```
 npm install
 node src/server.js
