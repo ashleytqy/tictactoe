@@ -20,7 +20,7 @@
 - Only the user whose turn it is can make the next move.
 - When a turn is taken that ends the game, the response indicates this along with who won.
 
-### Running
+### Running it locally
 In one terminal, do:
 ```
 npm install
