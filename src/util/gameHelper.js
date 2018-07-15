@@ -121,6 +121,13 @@ by the user in the specified channel
 */
 function move(channelId, userId, number) {
   let game = activeGames[channelId];
+
+  if (!game) {
+    return buildErrorMsg(
+      "There isn't an active game right now to play. Challenge someone or accept a challenge to play!"
+    );
+  }
+
   let response;
 
   if (!game.isUserInGame(userId))
